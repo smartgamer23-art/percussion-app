@@ -1,0 +1,5 @@
+streamlit
+fastai
+librosa
+matplotlib
+numpy
