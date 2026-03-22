@@ -4,6 +4,7 @@ from fastai.vision.all import load_learner, PILImage  # fastai utilities for mod
 import tempfile  # Create temporary files for audio and spectrogram processing
 import matplotlib.pyplot as plt  # Plotting library for visualizations
 import librosa.display  # Audio visualization utilities
+import pathlib  # For pathlib compatibility fix
 
 # Import custom audio processing functions
 from pneumonia_audio_utils import audio_to_melspec, save_temp_spectrogram
@@ -46,7 +47,16 @@ def load_model():
         learner: Trained fastai vision learner for percussion sound
 classification
     """
-    return load_learner("percussion_classifier.pkl")
+    # Temporary fix for pathlib compatibility issues when loading models saved on different OS
+    original_posix_path = pathlib.PosixPath
+    pathlib.PosixPath = pathlib.PurePosixPath
+    
+    try:
+        learner = load_learner("percussion_classifier.pkl")
+    finally:
+        pathlib.PosixPath = original_posix_path
+    
+    return learner
 
 # Initialize the model once at application startup
 learn = load_model()
