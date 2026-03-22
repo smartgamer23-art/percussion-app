@@ -1,5 +1,6 @@
-streamlit
-fastai
-librosa
-matplotlib
-numpy
+streamlit>=1.28.0
+fastai>=2.7.0
+librosa>=0.10.0
+matplotlib>=3.7.0
+numpy>=1.24.0
+IPython>=8.0.0
